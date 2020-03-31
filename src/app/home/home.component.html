@@ -1,0 +1,35 @@
+
+<div class="body"> 
+  <div class="jumbotron" style="float:right;">
+    <h1 class="display-4">Điểm Danh Lớp Học</h1>
+    <hr class="my-4" />
+    <p style="text-align: center;font-size:20px;">
+      Sử dụng công nghệ Azure Cognitive Services cho điểm danh sinh viên
+    </p>
+  </div>
+
+  <div class="card-group" style="float: right;">
+    <div class="card" >
+      <h4 class="card-header">Lưu danh sách lớp học</h4>
+      <div class="card-body">
+        <div class="card-text">
+          Thiết lập Person Groups, Persons and Faces
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="btn btn-primary" [routerLink]="['/configuration']">Thiết lập dữ liệu</a>
+      </div>
+    </div>
+    <div class="card">
+      <h4 class="card-header" style="padding-bottom: 50px;">Face Detection</h4>
+      <div class="card-body">
+        <div class="card-text">
+          Detect and Identify Faces
+        </div>
+      </div>
+      <div class="card-footer">
+        <a class="btn btn-success" [routerLink]="['/test-faces']">Điểm danh</a>
+      </div>
+    </div>
+
+  </div>

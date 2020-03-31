@@ -1,0 +1,42 @@
+select {
+    max-width: 300px;
+}
+
+
+.mainImageContainer {
+    position: relative;
+}
+
+.main-img {
+    max-width: 100%;
+    object-fit: contain;
+}
+.Class .Class-image{
+    font-size: 0.875em;
+    font-family: 'Times New Roman', Times, serif;
+    background: cornsilk;
+    padding: 0.3cm;
+    margin: 0.2cm;
+    text-align: left;
+}
+.Class{
+    background: rgb(100, 183, 231);
+}
+
+.face-box-yellow {
+    position: absolute;
+    border: 3px solid yellow;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.face-box-green {
+    position: absolute;
+    border: 3px solid green;
+    background-color: transparent;
+    cursor: pointer;
+}
+.card{
+    color: rgb(3, 117, 247);
+    background: rgb(205, 229, 245);
+}

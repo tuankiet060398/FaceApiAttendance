@@ -1,0 +1,33 @@
+.img-container {
+    display: inline-block;
+    width: 140px;
+    height: 140px;
+    position: static;
+    background: rgb(205, 229, 245);
+    
+}
+
+.img-person-face {
+    max-width:140px;
+    max-height:140px;
+    width:auto;
+    height:auto;
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    margin: auto;
+    
+}
+
+.card-block-img-container {
+    text-align: center;
+}
+.card-header{
+    background: rgb(205, 229, 245);
+}
+.card-body{
+    background: rgb(205, 229, 245);
+    
+}
+.container{
+    color:   rgb(81, 81, 230);
+}
