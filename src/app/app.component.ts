@@ -1,6 +1,5 @@
 import { Component,ComponentFactoryResolver, ViewChild, ViewContainerRef, Input } from '@angular/core';
 import { ToasterConfig } from 'angular2-toaster';
-import {SchedulerComponent} from './scheduler/scheduler.component';
 
 @Component({
   selector: 'app-root',
@@ -14,14 +13,4 @@ export class AppComponent {
       positionClass: 'toast-bottom-center'
     });
 
-    @Input()
-    schedulerComponent: SchedulerComponent; 
-  
-    @ViewChild('target', { read: ViewContainerRef }) target: ViewContainerRef;
-    constructor(private resolver: ComponentFactoryResolver) { }
-    addScheduler() {
-      this.target.clear();
-      const factory = this.resolver.resolveComponentFactory(SchedulerComponent);
-      const componentRef = this.target.createComponent(factory);
-    }
 }

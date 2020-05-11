@@ -19,9 +19,7 @@ import { LoadingModule } from 'ngx-loading';
 import { ToasterModule } from 'angular2-toaster';
 import { FaceGroupingComponent } from './face-grouping/face-grouping.component';
 import { FindSimilarComponent } from './find-similar/find-similar.component';
-import { SchedulerComponent } from './scheduler/scheduler.component';
-import { DayPilot, DayPilotModule } from 'daypilot-pro-angular';
-import { DataService } from './scheduler/data.service';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -32,8 +30,7 @@ import { DataService } from './scheduler/data.service';
     FaceTesterComponent,
     InputBoxComponent,
     FaceGroupingComponent,
-    FindSimilarComponent,
-    SchedulerComponent
+    FindSimilarComponent
   ],
   imports: [
     BrowserModule,
@@ -44,13 +41,12 @@ import { DataService } from './scheduler/data.service';
     LoadingModule,
     NgbModule.forRoot(),
     ToasterModule.forRoot(),
-    DayPilotModule
+    HttpModule
   ],
   providers: [
     FaceApiService,
-    InputBoxService,
-    DataService
-  ],
+    InputBoxService
+    ],
   bootstrap: [AppComponent],
   entryComponents: [
     InputBoxComponent
