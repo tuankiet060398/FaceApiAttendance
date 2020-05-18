@@ -5,6 +5,9 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { ExcelService } from '../services/excel.service';
 import * as saveAs from 'file-saver';
 import { Http, Response } from '@angular/http';
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from 'angularfire2/storage';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 declare module 'file-saver';
 @Component({
@@ -15,6 +18,12 @@ declare module 'file-saver';
 })
 export class FaceTesterComponent implements OnInit {
   loading = false;
+  ref: AngularFireStorageReference;
+  task: AngularFireUploadTask;
+  uploadState: Observable<string>;
+  uploadProgress: Observable<number>;
+  downloadURL: Observable<string>;
+  
   public detectedFaces: any;
   public identifiedPersons = [];
   public imageUrl: string;
@@ -24,14 +33,17 @@ export class FaceTesterComponent implements OnInit {
   public selectedFaces: any;
   public selectedGroupId = '';
   public identifiedFace = []; 
-  csvUrl: string = '../../../../assets/data.csv';
+  csvUrl: string = 'https://console.firebase.google.com/u/0/project/my-project-1562601873566/storage/my-project-1562601873566.appspot.com/files/';//'../../../../assets/data.csv';
   public csvData = [];
   @ViewChild('mainImg') mainImg;
+  profileUrl: Observable<any>;
 
   constructor(
     private faceApi: FaceApiService,
     private excelService: ExcelService,
-    private http: Http
+    private http: Http,
+    private http1: HttpClient,
+    private afStorage: AngularFireStorage
     ) { }
 
   ngOnInit() {
@@ -41,10 +53,20 @@ export class FaceTesterComponent implements OnInit {
       this.loading = false;
     });
   }
-
-  public async readCsvData () {
+  public readCsvData () {
     this.loading = true;
-    await this.http.get(this.csvUrl)
+    const ref = this.afStorage.ref(`${this.selectedGroupId}.csv`);
+    console.log('**profile',ref);
+
+  this.profileUrl;
+  ref.getDownloadURL().subscribe(
+    data => this.profileUrl = data,  
+    err => this.handleError(err),
+  );;
+  console.log('**profile',this.profileUrl);
+
+
+  this.http.get(`${this.profileUrl}`)
     .subscribe(
       data => this.extractData(data),  
       err => this.handleError(err),
@@ -139,21 +161,39 @@ export class FaceTesterComponent implements OnInit {
     });
 
     for (let i = 0; i < result.length; i++) {
-      for(let j =0; i< this.csvData[0].length; i++){
+      for(let j =0; j < this.csvData[0].length; j++){
         if(this.csvData[0][j][0] == result[i]){
           this.csvData[0][j].push("+"+"\n");
+        }else{
+          this.csvData[0][j].push("-"+"\n");
         }
       }
     }
-    let file = new Blob(this.csvData[0],{ type: 'text/plain;charset=utf-8' });
+    console.log('**Danh Sach Diem Danh', this.csvData[0]);
+    // const filePath = `${'/data'}/${'data.csv'}`;
+    // const storageRef = this.afStorage.ref(filePath);
+    // const uploadTask = this.afStorage.upload(filePath, this.csvData[0].file);
+    // Create storage ref
+    let newName = `${this.selectedGroupId}.csv`;
+    let file1 = new Blob(this.csvData[0], {type: "text/csv"});
 
-    saveAs(file, 'C:\Users\DELL\Desktop\webapi\FaceAPi\Face-API\src\assets\data.csv');
+    // upload file
+    this.afStorage.ref(`${newName}`).put(file1);
+    // console.log('**Danh Sach Diem Danh',this.afStorage.keepUnstableUntilFirst);
+
   }
   exportData() {
     console.log(this.identifiedPersons);
     this.excelService.exportAsExcelFile(this.identifiedPersons, 'data');
    
     }
-
 }
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Headers',
+    'Access-Control-Allow-Methods': 'DELETE, POST, GET, OPTIONS'
+  })
+};
 

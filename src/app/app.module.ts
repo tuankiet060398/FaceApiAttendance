@@ -20,6 +20,8 @@ import { ToasterModule } from 'angular2-toaster';
 import { FaceGroupingComponent } from './face-grouping/face-grouping.component';
 import { FindSimilarComponent } from './find-similar/find-similar.component';
 import { HttpModule } from '@angular/http';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,14 @@ import { HttpModule } from '@angular/http';
     LoadingModule,
     NgbModule.forRoot(),
     ToasterModule.forRoot(),
-    HttpModule
+    HttpModule,
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyAmMbYcwPldgXVAvZB5i5HvBdQ7OIfjy1g",
+      authDomain: "my-project-1562601873566.firebaseapp.com",
+      storageBucket: "my-project-1562601873566.appspot.com",
+      projectId: "my-project-1562601873566",
+    }),
+    AngularFireStorageModule
   ],
   providers: [
     FaceApiService,
