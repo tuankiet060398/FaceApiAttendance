@@ -37,7 +37,7 @@
     "ngx-loading": "^1.0.14",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.5.5",
-    "xlsx": "^0.15.2",
+    "xlsx": "^0.17.0",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
